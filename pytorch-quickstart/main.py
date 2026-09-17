@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets
-from torchvision.transforms import v2
+from torchvision.transforms import v2 #Torch Vision transform API
 
 
 
@@ -19,8 +19,20 @@ test_data = datasets.FashionMNIST(
     root="data",
     train=False,
     download=True,
-    transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)])
+    transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]) #v2.ToImage() converts the loaded image into a PyTorch image tensor so subsequent transforms can work with it.
+    #Compose means Take several transformations and execute them one after another.
+    #results:
+    # Tensor
+    
+    # shape = [1, 28, 28] - FashionMNIST images are grayscale:
+    #Channels x Height x Width 
+    
+    #For an RGB image:
+    # 3 x 224 x 224 - RGB
 )
+
+
+
 
 batch_size = 64
 
