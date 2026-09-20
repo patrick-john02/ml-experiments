@@ -58,10 +58,15 @@ class NeuralNetwork(nn.Module):
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
             nn.Linear(28*28, 512),
-            nn.ReLU(),
-            nn.Linear(512, 512),
-            nn.ReLU(),
-            nn.Linear(512, 10)
+            nn.ReLU(), #turns all negatives numbers into flat zero
+            
+            nn.Linear(512, 512), #512 here is neurons, hidden layer
+            #question: Why is the next one nn.Linear(512, 512)?
+            #Because the previous layer outputs 512 values.
+            #we couldnt write other numbers because the previous process produces 512 values.
+            
+            nn.ReLU(), #turns all negatives numbers into flat zero
+            nn.Linear(512, 10) #FashionMNIST has 10 classes.
         )
         
     def forward(self, x):
@@ -121,7 +126,7 @@ def train(dataloader, model, loss_function, optimizer):
 
 #we also check the model's performance against the test dataset to ensure it is learning.
 
-def test(dataloader, model, lost_function):
+def test(dataloader, model, loss_function):
     size = len(dataloader.dataset)
     num_batches = len(dataloader)
     model.eval()
@@ -143,7 +148,7 @@ def test(dataloader, model, lost_function):
 #The training process is conducted over several iteration (epochs). During each epoch, the model learns parameters to make better predictions.
 #We print the model's accuracy and loss at each epoch; we'd like to see theaccuracy increase and the loss decrease with every epoch. 
 
-epoch = 10
+epoch = 2
 for t in range(epoch):
     print(f"Epoch {t+1}\n -------")
     train(train_dataloader, model, loss_function, optimizer)
