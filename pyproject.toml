@@ -20,3 +20,8 @@ explicit = true
 torch = { index = "pytorch-cuda" }
 torchvision = { index = "pytorch-cuda" }
 torchaudio = { index = "pytorch-cuda" }
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]
